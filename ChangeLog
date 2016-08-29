@@ -1,0 +1,53 @@
+2014-12-04 Juergen Kussmann <juergen.kussmann@aoe.com>
+
+	* Set version to 1.6.0
+	* Support TYPO3 6.2
+
+
+2013-11-13 Juergen Kussmann <juergen.kussmann@aoemedia.de>
+
+	* Fixed bug: Use last used DB-linkHandler in method ux_t3lib_DB::sql_error
+
+2010-06-15  Oliver Hader  <oliver@typo3.org>
+
+	* Fixed bug: Typing error in XCLASS definition
+
+2010-06-14  Oliver Hader  <oliver@typo3.org>
+
+	* Set version to 1.4.0
+!!!	* Fixed bug: Wrong XCLASS definition of ux_t3lib_DB
+
+2010-05-25  Sascha Kettler  <sascha.kettler@aoemedia.de>
+
+	* Fixed Bug #7817: setDBinit ignored when using write connection after read failure
+
+2010-01-05  Oliver Hader  <oliver@typo3.org>
+
+	* Added feature: Added assure property 'cliDispatch' to use write/master database for CLI processes
+
+2009-06-18  Oliver Hader  <oliver@typo3.org>
+
+	* Cleanup: Fixed formatting
+	* Fixed bug: Fallback to default link if readLink could not be established
+
+2009-06-15  Oliver Hader  <oliver@typo3.org>
+
+	* Set version to 1.3.0-dev
+	* Cleanup: Remove structures that depent on specific TYPO3 versions
+	* Cleanup: Set requirement to TYPO3 4.3.0
+!!!	* Cleanup: Removed memcached features - use a proper MySQL query cache instead
+	* Added feature: Integrated assure configurations for using write/master database
+
+2009-06-15  Oliver Hader  <oliver@typo3.org>
+
+	* Fixed bug: Defined checks for TYPO3 4.2.0-4.5.0
+
+2009-06-12  Oliver Hader  <oliver@typo3.org>
+
+	* Fixed bug: Defining XCLASS only worked for TYPO3 4.2.0 but not for patch level releases
+	* Cleanup: Defined proper SVN properties, fixed formatting and removed unused stuff
+	* Cleanup: Fixed naming and base class inclusion
+
+2008-04-26  Fernando Arconada  <fernando.arconada@gmail.com>
+
+	* Initial release
