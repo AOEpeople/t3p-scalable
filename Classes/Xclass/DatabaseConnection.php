@@ -223,7 +223,7 @@ class DatabaseConnection extends \TYPO3\CMS\Core\Database\DatabaseConnection
     protected function getT3pScalable()
     {
         if (false === isset($this->t3pscalable)) {
-            $this->t3pscalable = t3lib_div::makeInstance('tx_t3pscalable');
+            $this->t3pscalable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_t3pscalable');
         }
         return $this->t3pscalable;
     }

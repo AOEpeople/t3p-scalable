@@ -155,7 +155,7 @@ class tx_t3pscalable {
 
 			if (isset($this->assureConfiguration['write']['tables'])) {
 				$this->assuredWriteTables = array_flip(
-					t3lib_div::trimExplode(',', $this->assureConfiguration['write']['tables'], true)
+					\TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->assureConfiguration['write']['tables'], true)
 				);
 			}
 		}
