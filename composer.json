@@ -1,5 +1,5 @@
 {
-  "name": "aoe/t3p_scalable",
+  "name": "aoe/t3p-scalable",
   "description": "allows you to configure a read/write db connection for a master/slave setup",
   "type": "typo3-cms-extension",
   "license": "GPL-3.0",
