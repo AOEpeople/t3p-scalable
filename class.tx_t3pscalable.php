@@ -55,43 +55,37 @@ class tx_t3pscalable {
 	 * Private function to get a DB (both, read and write servers)
 	 *
 	 * @param string $type Type of connection Enum{'read','write'}
-	 * @param integer $attempts number of times to try to connect to a db server
-	 * @return \mysqli object which represents the connection to a MySQL Server.
+	 * @param int $attempts number of times to try to connect to a db server
+	 * @return resource_id DB link resource
 	 */
-    private function getDbConnection($type, $attempts = 1)
-    {
-        /* $attempts : number of times to try to connect to a db server
-    	    1..n : 1 or more tries choosing servers in a pseudo random fashion
-        */
-        $db_server = null;
-        $link = mysqli_init();
-        $connected = false;
+	private function getDbConnection($type,$attempts=1){
+	/* $attempts : number of times to try to connect to a db server
+		1..n : 1 or more tries choosing servers in a pseudo random fashion
+	*/
+		$db_server=null;
+		$link=null;
 		switch($type):
-            case 'read':
-                $db_server = $this->getReadHost();
-                break;
-            case 'write':
-                $db_server = $this->getWriteHost();
-                break;
-        endswitch;
-        while ($connected === false && $attempts>0) {
-            $connected = $link->real_connect(
-                $db_server['host'],
-                $db_server['user'],
-                $db_server['pass'],
-                '',
-                $db_server['port']
-            );
-            $attempts--;
-        }
-        return $link;
-    }
+			case 'read':
+				$db_server=$this->getReadHost();
+				break;
+			case 'write':
+				$db_server=$this->getWriteHost();
+				break;
+		endswitch;
+		while(!$link && $attempts>0){
+			$link = @mysql_connect($db_server['host'].':'.$db_server['port'],$db_server['user'],$db_server['pass']);
+			$attempts--;
+		}
+		return $link;
+
+
+	}
 
 	/**
 	 * Public wrapper function for getDbConnection only for 'read' servers
 	 *
 	 * @param int $attempts number of times to try to connect to a db server
-	 * @return \mysqli object which represents the connection to a MySQL Server.
+	 * @return resource_id DB link resource or FALSE
 	 */
 	public function getDbReadConnection($attempts){
 		return $this->getDbConnection('read',$attempts);
@@ -101,7 +95,7 @@ class tx_t3pscalable {
 	 * Public wrapper function for getDbConnection only for 'write' servers
 	 *
 	 * @param int $attempts number of times to try to connect to a db server
-	 * @return \mysqli object which represents the connection to a MySQL Server.
+	 * @return resource_id DB link resource
 	 */
 	public function getDbWriteConnection($attempts){
 		return $this->getDbConnection('write',$attempts);
@@ -155,7 +149,7 @@ class tx_t3pscalable {
 
 			if (isset($this->assureConfiguration['write']['tables'])) {
 				$this->assuredWriteTables = array_flip(
-					\TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->assureConfiguration['write']['tables'], true)
+					t3lib_div::trimExplode(',', $this->assureConfiguration['write']['tables'], true)
 				);
 			}
 		}
@@ -218,3 +212,10 @@ class tx_t3pscalable {
 		return $result;
 	}
 }
+
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3p_scalable/class.tx_t3pscalable.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3p_scalable/class.tx_t3pscalable.php']);
+}
+
+?>

@@ -14,11 +14,6 @@
     }
   ],
   "require": {
-    "typo3/cms-core": "6.2.0 - 7.6.99"
-  },
-  "autoload": {
-    "psr-4": {
-      "Aoe\\T3p_scalable\\": "Classes/"
-    }
+    "typo3/cms-core": "6.2.0 - 6.2.99"
   }
 }

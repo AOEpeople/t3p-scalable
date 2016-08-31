@@ -1,9 +1,3 @@
-2014-12-04 Juergen Kussmann <juergen.kussmann@aoe.com>
-
-	* Set version to 1.6.0
-	* Support TYPO3 6.2
-
-
 2013-11-13 Juergen Kussmann <juergen.kussmann@aoemedia.de>
 
 	* Fixed bug: Use last used DB-linkHandler in method ux_t3lib_DB::sql_error
