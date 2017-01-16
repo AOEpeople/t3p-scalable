@@ -29,10 +29,21 @@
 * @author Fernando Arconada fernando.arconada at gmail dot com
 * @version 0.9
 */
-class tx_t3pscalable {
+class tx_t3pscalable
+{
+    /**
+     * @var array
+     */
 	protected $assuredWriteTables;
+
+    /**
+     * @var boolean
+     */
 	protected $isAssuredWriteBackendSession;
 
+    /**
+     * @var array
+     */
 	protected $assureConfiguration;
 
 	/**
@@ -40,12 +51,13 @@ class tx_t3pscalable {
 	 *
 	 * @var array
 	 */
-	protected $db_config=null;
+	protected $db_config = null;
 
 	/**
 	 * Constructs this object.
 	 */
-	public function __construct() {
+	public function __construct()
+    {
 		$this->db_config = $GLOBALS['t3p_scalable_conf']['db'];
 		$this->assureConfiguration = $GLOBALS['t3p_scalable_conf']['db']['assure'];
 		$this->getAssuredWriteTables();
@@ -93,7 +105,8 @@ class tx_t3pscalable {
 	 * @param int $attempts number of times to try to connect to a db server
 	 * @return \mysqli object which represents the connection to a MySQL Server.
 	 */
-	public function getDbReadConnection($attempts){
+	public function getDbReadConnection($attempts)
+    {
 		return $this->getDbConnection('read',$attempts);
 	}
 
@@ -103,7 +116,8 @@ class tx_t3pscalable {
 	 * @param int $attempts number of times to try to connect to a db server
 	 * @return \mysqli object which represents the connection to a MySQL Server.
 	 */
-	public function getDbWriteConnection($attempts){
+	public function getDbWriteConnection($attempts)
+    {
 		return $this->getDbConnection('write',$attempts);
 	}
 
@@ -113,7 +127,8 @@ class tx_t3pscalable {
 	 * @param string $type Type of connection Enum{'read','write'}
 	 * @return array db server config
 	 */
-	private function getDbHost($type){
+	private function getDbHost($type)
+    {
 		$db_hosts = array();
 		foreach ($this->db_config[$type] as $host){
 			if(isset($host['weight'])){
@@ -131,7 +146,8 @@ class tx_t3pscalable {
 	 *
 	 * @return array db server config
 	 */
-	public function getReadHost(){
+	public function getReadHost()
+    {
 		return $this->getDbHost('read');
 	}
 
@@ -140,7 +156,8 @@ class tx_t3pscalable {
 	 *
 	 * @return array db server config
 	 */
-	public function getWriteHost(){
+	public function getWriteHost()
+    {
 		return $this->getDbHost('write');
 	}
 
@@ -149,7 +166,8 @@ class tx_t3pscalable {
 	 *
 	 * @return	array		Tables that are assured to be handled by write/master hosts only.
 	 */
-	public function getAssuredWriteTables() {
+	public function getAssuredWriteTables()
+    {
 		if (!isset($this->assuredWriteTables)) {
 			$this->assuredWriteTables = array();
 
@@ -169,7 +187,8 @@ class tx_t3pscalable {
 	 * @param	string		$table: The table name to be looked up
 	 * @return	boolean		Whether a table name is assured to be handled by write/master hosts only
 	 */
-	public function isAssuredWriteTable($table) {
+	public function isAssuredWriteTable($table)
+    {
 		$result = false;
 		$table = trim($table);
 
@@ -197,7 +216,8 @@ class tx_t3pscalable {
 	 *
 	 * @return	boolean		Whether a backend user session is assured to be handled by write/master hosts only.
 	 */
-	public function isAssuredWriteBackendSession() {
+	public function isAssuredWriteBackendSession()
+    {
 		$result = false;
 		if (isset($this->assureConfiguration['write']['backendSession']) && $this->assureConfiguration['write']['backendSession']) {
 			$result = (isset($GLOBALS['BE_USER']) && isset($GLOBALS['BE_USER']->user['uid']));
@@ -210,7 +230,8 @@ class tx_t3pscalable {
 	 *
 	 * @return	boolean		Whether a CLI process is dispatched and assured to be handled by write/master hosts only.
 	 */
-	public function isAssuredWriteCliDispatch() {
+	public function isAssuredWriteCliDispatch()
+    {
 		$result = false;
 		if (isset($this->assureConfiguration['write']['cliDispatch']) && $this->assureConfiguration['write']['cliDispatch']) {
 			$result = (defined('TYPO3_cliMode') && TYPO3_cliMode);

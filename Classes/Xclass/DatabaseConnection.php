@@ -1,7 +1,9 @@
 <?php
 namespace Aoe\T3p_scalable\Xclass;
 
+use TYPO3\CMS\Core\Database\PostProcessQueryHookInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use \tx_t3pscalable;
 
 /**
 * Extends the functionality of TYPO3_DB - the general database handler.
@@ -125,7 +127,7 @@ class DatabaseConnection extends \TYPO3\CMS\Core\Database\DatabaseConnection
      * @param string $host Deprecated since 6.1, will be removed in two versions. Database host IP/domain[:port]
      * @param string $username Deprecated since 6.1, will be removed in two versions. Username to connect with.
      * @param string $password Deprecated since 6.1, will be removed in two versions. Password to connect with.
-     * @return boolean|void
+     * @return boolean|\mysqli
      * @throws \RuntimeException
      */
     public function sql_pconnect($host = null, $username = null, $password = null)
@@ -223,7 +225,7 @@ class DatabaseConnection extends \TYPO3\CMS\Core\Database\DatabaseConnection
     protected function getT3pScalable()
     {
         if (false === isset($this->t3pscalable)) {
-            $this->t3pscalable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_t3pscalable');
+            $this->t3pscalable = GeneralUtility::makeInstance('tx_t3pscalable');
         }
         return $this->t3pscalable;
     }
