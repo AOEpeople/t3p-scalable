@@ -29,3 +29,4 @@ To be added to documentation:
 
 -------------------------------------------------------------------------------
 
+This extension is no longer actively maintained.
